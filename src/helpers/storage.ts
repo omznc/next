@@ -3,7 +3,6 @@ import {
     PutObjectCommand,
     S3Client,
 } from '@aws-sdk/client-s3';
-import { v4 as uuid } from 'uuid';
 import env from '@env';
 
 const s3 = new S3Client({
@@ -15,27 +14,23 @@ const s3 = new S3Client({
     },
 });
 
-export const uploadFile = async (file: File, dir?: string, key?: string) => {
-    const arrayBuffer = await file.arrayBuffer();
-
-    // const key = dir ? `${dir}/${uuid()}` : uuid();
-    const _key = key ? key : dir ? `${dir}/${uuid()}` : uuid();
-
+export const uploadFile = async (file: Buffer, type: string, key: string) => {
     const command = new PutObjectCommand({
         Bucket: env.BACKBLAZE_BUCKET_NAME,
-        Key: _key,
-        Body: Buffer.from(arrayBuffer),
-        ContentType: file.type,
+        Key: key,
+        Body: file,
+        ContentType: type,
     });
 
     await s3.send(command);
-    return `https://${env.BACKBLAZE_CDN_URL}/file/${env.BACKBLAZE_BUCKET_NAME}/${_key}`;
+
+    return `https://${env.BACKBLAZE_CDN_URL}/file/${env.BACKBLAZE_BUCKET_NAME}/${key}`;
 };
 
-export const deleteFile = async (key: string, dir?: string) => {
+export const deleteFile = async (key: string) => {
     const command = new DeleteObjectCommand({
         Bucket: env.BACKBLAZE_BUCKET_NAME,
-        Key: dir ? `${dir}/${key}` : key,
+        Key: key,
     });
 
     await s3.send(command);

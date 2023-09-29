@@ -1,8 +1,8 @@
 
-<img width="638" alt="Group 1" src="https://github.com/omznc/next/assets/38432561/728bf16c-2325-4670-9289-eca03d0b9c58">
+<img width="100%" alt="Group 1" src="https://github.com/omznc/next/assets/38432561/728bf16c-2325-4670-9289-eca03d0b9c58">
 
----
-This is a Bun-based [Next.js](https://nextjs.org/) project template that I've been using for my projects.
+
+### This is a Bun-based [Next.js](https://nextjs.org/) project template that I've been using for my projects.
 
 I decided to turn it into an actual template so that I can use it for future projects, and also so that others can use it as well. 
 
